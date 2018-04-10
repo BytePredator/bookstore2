@@ -8,7 +8,7 @@ class FCartaCredito extends Fdb{
         $this->_table='cartacredito';
         $this->_key='numero';
         $this->_return_class='ECartaCredito';
-        USingleton::getInstance('Fdb');
+        parent::setLink(USingleton::getInstance('Fdb')->getLink());
     }
 }
 

@@ -4,11 +4,12 @@
  * @package Foundation
  */
 class FLibro extends Fdb {
+    protected $DB;
     public function __construct() {
         $this->_table='libro';
         $this->_key='ISBN';
         $this->_return_class='ELibro';
-        USingleton::getInstance('Fdb');
+        parent::setLink(USingleton::getInstance('Fdb')->getLink());
     }
     public function store( $libro) {
         parent::store($libro);
@@ -41,7 +42,7 @@ class FLibro extends Fdb {
         }
         parent::delete($libro);
     }
-    
+
      /**
      * Seleziona sul database le diverse categorie esistenti per i vari libri
      *
@@ -53,7 +54,7 @@ class FLibro extends Fdb {
         $this->query($query);
         return $this->getResultAssoc();
     }
-    
+
 }
 
 ?>

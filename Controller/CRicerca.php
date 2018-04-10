@@ -34,7 +34,7 @@ class CRicerca {
         return $view->processaTemplate();
     }
     /**
-     * Seleziona sul database i libri per mostrarli all'utente e li filtra 
+     * Seleziona sul database i libri per mostrarli all'utente e li filtra
      * in base alle variabili passate
      * es categorie o stringhe di ricerca
      *

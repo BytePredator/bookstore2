@@ -44,19 +44,13 @@ class Fdb {
      * @return boolean
      */
     public function connect($host,$user,$password,$database) {
-        $this->_connection=mysql_connect($host,$password,$user);
-        if (!$this->_connection) {
-            die('Impossibile connettersi al database: ' . mysql_error());
-        }
-        $db_selected = mysql_select_db($database, $this->_connection);
-        if (!$db_selected) {
-            die ("Impossibile utilizzare $database: " . mysql_error());
+        $this->_connection = new mysqli($host,$password,$user,$database);
+        if ($this->_connection->connect_errno) {
+            die('Impossibile connettersi al database: ' . $this->_connection->connect_error);
         }
         debug('Connessione al database avvenuta correttamente');
-
         $this->query('SET names \'utf8\'');
         return true;
-
     }
     /**
      * Effettua una query al database
@@ -64,9 +58,9 @@ class Fdb {
      * @return boolean
      */
     public function query($query) {
-        $this->_result=mysql_query($query);
+        $this->_result=$this->_connection->query($query);
         debug($query);
-        debug(mysql_error());
+        debug($this->_connection->error);
         if (!$this->_result)
             return false;
         else
@@ -79,11 +73,11 @@ class Fdb {
      */
     public function getResultAssoc() {
         if ($this->_result != false) {
-            $numero_righe=mysql_num_rows($this->_result);
+            $numero_righe=mysqli_num_rows($this->_result);
             debug('Numero risultati:'. $numero_righe);
             if ($numero_righe>0) {
                 $return=array();
-                while ($row = mysql_fetch_assoc($this->_result)) {
+                while ($row = mysqli_fetch_assoc($this->_result)) {
                     $return[]=$row;
                 }
                 $this->_result=false;
@@ -99,10 +93,10 @@ class Fdb {
      */
     public function getResult() {
         if ($this->_result!=false) {
-            $numero_righe=mysql_num_rows($this->_result);
+            $numero_righe=mysqli_num_rows($this->_result);
             debug('Numero risultati:'. $numero_righe);
             if ($numero_righe>0) {
-                $row = mysql_fetch_assoc($this->_result);
+                $row = mysqli_fetch_assoc($this->_result);
                 $this->_result=false;
                 return $row;
             }
@@ -115,10 +109,10 @@ class Fdb {
      * @return mixed
      */
     public function getObject() {
-        $numero_righe=mysql_num_rows($this->_result);
+        $numero_righe=mysqli_num_rows($this->_result);
         debug('Numero risultati:'. $numero_righe);
         if ($numero_righe>0) {
-            $row = mysql_fetch_object($this->_result,$this->_return_class);
+            $row = mysqli_fetch_object($this->_result,$this->_return_class);
             $this->_result=false;
             return $row;
         } else
@@ -130,11 +124,11 @@ class Fdb {
      * @return array
      */
     public function getObjectArray() {
-        $numero_righe=mysql_num_rows($this->_result);
+        $numero_righe=mysqli_num_rows($this->_result);
         debug('Numero risultati:'. $numero_righe);
         if ($numero_righe>0) {
             $return=array();
-            while ($row = mysql_fetch_object($this->_result,$this->_return_class)) {
+            while ($row = mysqli_fetch_object($this->_result,$this->_return_class)) {
                 $return[]=$row;
             }
             $this->_result=false;
@@ -146,7 +140,7 @@ class Fdb {
      * Effettua la connessione al database
      */
     public function close() {
-        mysql_close($this->_connection);
+        $this->_connection->close();
         debug('Connessione al db chiusa');
     }
     /**
@@ -256,6 +250,14 @@ class Fdb {
             $query.='LIMIT '.$limit.' ';
         $this->query($query);
         return $this->getObjectArray();
+    }
+
+    protected function getLink(){
+        return $this->_connection;
+    }
+
+    protected function setLink($link){
+        $this->_connection=$link;
     }
 }
 
