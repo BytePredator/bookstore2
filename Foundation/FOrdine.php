@@ -9,7 +9,7 @@ class FOrdine extends Fdb{
         $this->_key='id';
         $this->_auto_increment=true;
         $this->_return_class='EOrdine';
-        parent::setLink(USingleton::getInstance('Fdb')->getLink());
+        USingleton::getInstance('Fdb');
     }
     public function store(EOrdine & $ordine){
         $FCartaCredito=new FCartaCredito();

@@ -58,6 +58,8 @@ class Fdb {
      * @return boolean
      */
     public function query($query) {
+        if(!$this->_connection)
+            $this->_connection=USingleton::getInstance('Fdb')->getLink();
         $this->_result=$this->_connection->query($query);
         debug($query);
         debug($this->_connection->error);
@@ -254,10 +256,6 @@ class Fdb {
 
     protected function getLink(){
         return $this->_connection;
-    }
-
-    protected function setLink($link){
-        $this->_connection=$link;
     }
 }
 

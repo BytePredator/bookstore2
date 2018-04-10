@@ -8,7 +8,7 @@ class FUtente extends Fdb{
         $this->_table='utente';
         $this->_key='username';
         $this->_return_class='EUtente';
-        parent::setLink(USingleton::getInstance('Fdb')->getLink());
+        USingleton::getInstance('Fdb');
     }
 }
 

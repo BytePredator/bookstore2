@@ -9,7 +9,7 @@ class FLibro extends Fdb {
         $this->_table='libro';
         $this->_key='ISBN';
         $this->_return_class='ELibro';
-        parent::setLink(USingleton::getInstance('Fdb')->getLink());
+        USingleton::getInstance('Fdb');
     }
     public function store( $libro) {
         parent::store($libro);

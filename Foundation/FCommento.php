@@ -9,7 +9,7 @@ class FCommento extends Fdb {
         $this->_key='id';
         $this->_auto_increment=true;
         $this->_return_class='ECommento';
-        parent::setLink(USingleton::getInstance('Fdb')->getLink());
+        USingleton::getInstance('Fdb');
     }
 
     public function store( $object){
