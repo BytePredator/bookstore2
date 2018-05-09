@@ -7,17 +7,17 @@
 global $config;
 
 $config['smarty']['template_dir'] =
-'/var/www/git/bookStore/templates/main/template/';
+'templates/main/template/';
 $config['smarty']['compile_dir'] =
-'/var/www/git/bookStore/templates/main/templates_c/';
+'templates/main/templates_c/';
 $config['smarty']['config_dir'] =
-'/var/www/git/bookStore/templates/main/configs/';
+'templates/main/configs/';
 $config['smarty']['cache_dir'] =
-'/var/www/git/bookStore/templates/main/cache/';
+'templates/main/cache/';
 
 $config['debug']=false;
 $config['mysql']['user'] = 'root';
-$config['mysql']['password'] = 'apollo11';
+$config['mysql']['password'] = 'asdasd';
 $config['mysql']['host'] = 'localhost';
 $config['mysql']['database'] = 'bookstore';
 
