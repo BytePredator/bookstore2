@@ -38,7 +38,7 @@ class ELibro {
      */
     public function getMediaVoti() {
         $somma=0;
-        $voti=count($this->_commento);
+        $voti=is_array($this->_commento)?count($this->_commento):0;
         if ($voti>1) {
             foreach ($this->_commento as $commento) {
                 $somma+=$commento->voto;

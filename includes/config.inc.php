@@ -17,7 +17,7 @@ $config['smarty']['cache_dir'] =
 
 $config['debug']=false;
 $config['mysql']['user'] = 'root';
-$config['mysql']['password'] = 'asdasd';
+$config['mysql']['password'] = 'qwerty';
 $config['mysql']['host'] = 'localhost';
 $config['mysql']['database'] = 'bookstore';
 
